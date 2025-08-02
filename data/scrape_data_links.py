@@ -8,7 +8,6 @@ class ScrapeDataLinks:
         self.host = "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
         self.dataset = []
 
-
     def read_links(self):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -46,6 +45,9 @@ class ScrapeDataLinks:
                         self.dataset.append(obj)
         self.df = pd.DataFrame(self.dataset)
 
+    def run(self):
+        self.read_links()
+        self.df.to_csv('data/data.csv', index=False)
 
 if __name__ == "__main__":
     scraper = ScrapeDataLinks()
