@@ -5,7 +5,7 @@ import requests
 
 class DownloadDataToS3:
     def __init__(self):
-        self.url_for_list_of_links = "s3://taxi-demand-project/links/links_to_data.csv"
+        self.url_for_list_of_links = f"s3://{aws['bucket']}/links/links_to_data.csv"
         self.link_list = None
 
     def download(self):
