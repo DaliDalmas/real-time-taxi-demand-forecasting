@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
-from libs.write_to_s3 import WriteToS3
+from libs.manage_s3 import Manages3
 from my_secrets import aws, host
 
 
@@ -50,9 +50,8 @@ class ScrapeDataLinks:
 
     def run(self):
         self.read_links()
-        # self.df.to_csv("data/data.csv", index=False)
-        s3_write = WriteToS3(aws["bucket"], "links", "links_to_data.csv")
-        s3_write.write(self.df)
+        s3_write = Manages3(aws["bucket"])
+        s3_write.write(self.df, "links_to_data.csv", "links", object_type='csv', dataframe=True)
 
 
 if __name__ == "__main__":
