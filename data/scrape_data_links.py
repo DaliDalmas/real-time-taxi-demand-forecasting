@@ -51,7 +51,9 @@ class ScrapeDataLinks:
     def run(self):
         self.read_links()
         s3_write = Manages3(aws["bucket"])
-        s3_write.write(self.df, "links_to_data.csv", "links", object_type='csv', dataframe=True)
+        s3_write.write(
+            self.df, "links_to_data.csv", "links", object_type="csv", dataframe=True
+        )
 
 
 if __name__ == "__main__":

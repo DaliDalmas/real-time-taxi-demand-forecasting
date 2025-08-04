@@ -13,8 +13,15 @@ class Manages3:
             aws_secret_access_key=aws["SECRET_KEY"],
         )
 
-    def write(self, object: any, object_name: str, prefix: str, object_type: str, dataframe=False) -> None:
-        if object_type=='csv':
+    def write(
+        self,
+        object: any,
+        object_name: str,
+        prefix: str,
+        object_type: str,
+        dataframe=False,
+    ) -> None:
+        if object_type == "csv":
             csv_buffer = StringIO()
             object.to_csv(csv_buffer, index=False)
             self.s3.put_object(
@@ -22,7 +29,7 @@ class Manages3:
                 Key=f"{prefix}/{object_name}",
                 Body=csv_buffer.getvalue(),
             )
-        elif object_type=='parquet':
+        elif object_type == "parquet":
             if dataframe:
                 pass
             else:
@@ -30,7 +37,7 @@ class Manages3:
                     Bucket=self.bucket,
                     Key=f"{prefix}/{object_name}",
                     Body=object,
-                )   
+                )
 
     def read(self, url: str = None, urls: list = None) -> None:
         if isinstance(url, str) and not isinstance(urls, list):

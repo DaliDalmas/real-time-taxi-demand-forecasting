@@ -22,7 +22,7 @@ class DownloadDataToS3:
                 object_name=object_name,
                 object=response.content,
                 prefix=f"trip-data/{year}/{month}",
-                object_type='parquet'
+                object_type="parquet",
             )
             print(year, month, link)
 
